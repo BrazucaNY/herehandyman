@@ -519,3 +519,108 @@ footer {
         padding: 60px 0;
     }
 }
+
+/* Service Area Section */
+.service-area-section {
+    padding: 50px 0;
+}
+.service-area-content {
+    display: flex;
+    gap: 30px;
+    margin-top: 20px;
+}
+.map-container {
+    flex: 1.2;
+    min-width: 0;
+}
+.service-list {
+    flex: 1;
+    min-width: 0;
+}
+.service-list h3 {
+    margin-top: 0;
+    color: #333;
+}
+.location-list {
+    list-style: none;
+    padding: 0;
+    margin: 15px 0 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+.location-list li {
+    display: flex;
+    align-items: center;
+    font-size: 0.95rem;
+}
+.location-list i {
+    color: #f5d71a;
+    margin-right: 8px;
+    font-size: 0.9rem;
+}
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .service-area-content {
+        flex-direction: column;
+    }
+    
+    .map-container iframe {
+        height: 350px;
+    }
+}
+@media (max-width: 576px) {
+    .location-list {
+        grid-template-columns: 1fr;
+    }
+}
+/* Header Buttons Container */
+.header-buttons {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+/* Existing phone button styles */
+.header-phone-button {
+    background: #f5d71a;
+    color: #1a1a1a;
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 600;
+    font-family: 'Oswald', sans-serif;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+}
+/* New CTA Button */
+.header-cta-button {
+    background: #1a1a1a;
+    color: #ffffff;
+    padding: 8px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 600;
+    font-family: 'Oswald', sans-serif;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+    border: 2px solid #1a1a1a;
+}
+/* Hover Effects */
+.header-phone-button:hover {
+    background: #e0c516;
+    transform: translateY(-2px);
+}
+.header-cta-button:hover {
+    background: transparent;
+    color: #1a1a1a;
+}
+/* Mobile Responsive */
+@media (max-width: 992px) {
+    .header-buttons {
+        display: none; /* Hide on mobile */
+    }
+}
