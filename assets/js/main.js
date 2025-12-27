@@ -99,18 +99,73 @@ document.addEventListener('DOMContentLoaded', function() {
     // ==========================================
     // 3. NAVIGATION & UI (Your Original Logic)
     // ==========================================
-    const hamburgerBtn = document.getElementById('hamburger-btn');
     const mobileMenu = document.getElementById('mobile-menu');
+    const hamburgerBtn = document.getElementById('hamburger-btn');
     const closeBtn = document.getElementById('close-btn');
-    const header = document.querySelector('header');
+    const navLinks = document.querySelectorAll('.mobile-nav-links a');
+    const body = document.body;
 
-    // Mobile Toggle
-    const toggleMenu = () => {
+    // Toggle mobile menu
+    function toggleMenu() {
         mobileMenu.classList.toggle('active');
-        document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
-    };
-    if (hamburgerBtn) hamburgerBtn.addEventListener('click', toggleMenu);
-    if (closeBtn) closeBtn.addEventListener('click', toggleMenu);
+        hamburgerBtn.setAttribute('aria-expanded', 
+            hamburgerBtn.getAttribute('aria-expanded') === 'true' ? 'false' : 'true'
+        );
+        
+        // Toggle body scroll
+        body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+    }
+
+    // Close menu when clicking outside
+    function handleClickOutside(e) {
+        if (mobileMenu.classList.contains('active') && 
+            !mobileMenu.contains(e.target) && 
+            !hamburgerBtn.contains(e.target)) {
+            toggleMenu();
+        }
+    }
+
+    // Event Listeners
+    if (hamburgerBtn) {
+        hamburgerBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleMenu();
+        });
+    }
+
+    if (closeBtn) {
+        closeBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleMenu();
+        });
+    }
+
+    // Close menu when clicking on nav links
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            if (mobileMenu.classList.contains('active')) {
+                toggleMenu();
+            }
+        });
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', handleClickOutside);
+
+    // Close menu on window resize if it's larger than mobile
+    function handleResize() {
+        if (window.innerWidth > 992 && mobileMenu.classList.contains('active')) {
+            toggleMenu();
+        }
+    }
+
+    window.addEventListener('resize', handleResize);
+
+
+    // ==========================================
+    // 4. NAVIGATION & UI (Your Original Logic)
+    // ==========================================
+    const header = document.querySelector('header');
 
     // Sticky Header Scroll Effect
     let lastScroll = 0;
@@ -167,30 +222,3 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
-<script>
-    // Mobile Menu Toggle
-    const hamburgerBtn = document.getElementById('hamburger-btn');
-    const mainNav = document.querySelector('.main-nav');
-    const closeBtn = document.querySelector('.mobile-menu-close');
-
-    hamburgerBtn.addEventListener('click', () => {
-        mainNav.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    });
-
-    // Close mobile menu when clicking outside
-    document.addEventListener('click', (e) => {
-        if (!e.target.closest('.main-nav') && !e.target.closest('#hamburger-btn')) {
-            mainNav.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-    });
-
-    // Close menu when clicking on a nav link
-    document.querySelectorAll('.nav-links a').forEach(link => {
-        link.addEventListener('click', () => {
-            mainNav.classList.remove('active');
-            document.body.style.overflow = '';
-        });
-    });
-</script>
